@@ -10,7 +10,8 @@ Students are expected to:
 Student Info
 =======================
 
-* Name: *YourNameHere*
-* ID: *YourIdHere*
+* Name: *Pham Ha Chau*
+* ID: *BI12-061*
 * Group ID: *Your Group ID here*
+
 
