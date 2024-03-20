@@ -1,60 +1,64 @@
-\documentclass[conference]{IEEEtran}
-\usepackage{graphicx}
-\title{ECG Heartbeat Classification}
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{multicol}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+
+\title{Using Electrocardiogram (ECG) for Machine Learning}
+\author{Pham Ha Chau}
+\date{\today}
+
 \begin{document}
+
 \maketitle
 
+\begin{multicols}{2}
+
 \section{Introduction}
+Heartbeats are the continuous contractions of the human heart, an important organ that pumps blood throughout the body. The heartbeat is crucial as it ensures the circulation of blood throughout the body, delivering oxygen and nutrients to various tissues and organs. Doctors use heartbeat analysis for diagnosing various cardiac conditions. An irregular heartbeat can indicate issues such as arrhythmia or heart disease. 
+Applying ML in heartbeat classification helps in the automatic detection of abnormal heart rhythms from electrocardiogram (ECG) data, which can aid in early diagnosis and treatment. The electrocardiogram (ECG), a popular non-invasive diagnostic technique, records the electrical activity of the heart and offers important insights into cardiac function. We can find patterns and abnormalities in ECG data by using machine learning algorithms, which may not be immediately visible to the human eye. The challenge lies in developing robust ML models that can accurately classify heartbeats across varied populations and conditions, ensuring reliable diagnostics for effective healthcare delivery.
 
-Heart
+\section{Data Analysis}
+It is shown in the figure below that there seems to be an imbalance in the category counts. Specifically, the Fuse (F) class has the fewest counts while the Normal class outnumbers the rest. This could cause some biases in the models' predictions.
+\includegraphics[width=\linewidth]{trainvisual1.png}
+    \captionof{figure}{Counts of each class in mitbih\_train.csv}
+    \label{fig:train}
+\section{Data Preprocessing}
+I have upsampled the underrepresented classes to a maximum of 20,000 samples each in order to avoid the issue mentioned in the preceding section. 20,000 examples for the dominant class N were selected. After that, a balanced dataset is displayed in mitbih\_train.csv.
+\includegraphics[width=\linewidth]{trainvisual2.png}
+    \captionof{figure}{Counts of each class in mitbih\_train.csv after resampling}
+    \label{fig:train resample}
+\section{Modeling}
+The experiment is conducted using a Random Forest Classifier from the \texttt{sklearn} library in Python. The steps are as follows:
 
-Heartbeat: what why
+The necessary libraries and modules are imported. This includes \texttt{RandomForestClassifier}, \texttt{train\_test\_split}, \texttt{accuracy\_score}, \texttt{confusion\_matrix}, and \texttt{classification\_report} from \texttt{sklearn}.
 
-Heartbeat in clinical diagnosis: what why
-
-ML: what why 
-
-ML in heartbeat Classification: what why
-
-What other people do in ML for heartbeat Classification: survey
-
-State problem
-
-\section{Background}
-
-ECG 
-
-CNN 
-
-\section{Method}
-
-CNN architecture
+The features (X) and labels (y) for the training and test sets are defined. The last column of the dataframes \texttt{train\_df} and \texttt{test} is the label. A Random Forest Classifier is created with 100 estimators, a maximum depth of 10, and a random state of 42 for reproducibility. The classifier is fitted on the training set. Predictions are made on the test set. 
 
 \section{Evaluation}
+\begin{tabular}{c|c c c c}
+\hline
+Class & Precision & Recall & F1-score & Support \\ \hline
+N & 0.98 & 0.95 & 0.97 & 18118 \\
+S & 0.59 & 0.75 & 0.66 & 556 \\ 
+V & 0.93 & 0.89 & 0.91 & 1448 \\ 
+F & 0.20 & 0.85 & 0.33 & 162 \\ 
+Q & 0.95 & 0.95 & 0.95 & 1608 \\ \hline
+\multicolumn{1}{c|}{Accuracy} & & & 0.94 & 21892 \\
+\multicolumn{1}{c|}{Macro avg} & 0.73 & 0.88 & 0.76 & 21892 \\
+\multicolumn{1}{c|}{Weighted avg} & 0.96 & 0.94 & 0. & 21892\\ \hline
+\end{tabular}
+\caption{Classification Report}
+\label{table:classification_report}
 
-Dataset
-
-Metric
-
-Result
-
-Discussion
-
+The confusion matrix displays the results after feeding mitbih\_test.csv into the model. Being the dominant class, N seems  
+\includegraphics[width=\linewidth]{confusion matrix.png}
+    \captionof{figure}{Confusion Matrix of mitbih\_test.csv}
+    \label{fig:confusion matrix}
 \section{Conclusion}
+In our this research, we utilized a Random Forest Classifier for the categorization of heart rhythms from ECG data. The outcomes were quite encouraging, exhibiting substantial precision in identifying 'N' and 'Q' categories. Nonetheless, some erroneous classifications were noted, especially between 'N' and 'F', as well as 'N' and 'S' categories.
 
-What you did, what you did not do, what's wrong
-
-What should be done in the future
-
-
-
-
-
-
-
-
-
-
-
-
+Such inaccuracies may stem from various elements, such as uneven class distribution, selection of features, the complexity of the model, data noise, and limited training. To enhance the efficacy of the model, forthcoming efforts should concentrate on these challenges.
+The comnfusion matrix shows results in  
+\end{multicols}
 \end{document}
