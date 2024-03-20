@@ -12,6 +12,6 @@ Student Info
 
 * Name: *Pham Ha Chau*
 * ID: *BI12-061*
-* Group ID: *Your Group ID here*
+* Group ID: *7*
 
 
